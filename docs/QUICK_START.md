@@ -16,8 +16,8 @@
 ## 第一步：克隆项目
 
 ```bash
-git clone https://github.com/你的用户名/luntan.git
-cd luntan
+git clone https://github.com/你的用户名/forum.git
+cd forum
 ```
 
 ---
@@ -59,7 +59,7 @@ API_PREFIX=/api/v1
 # 数据库配置
 DB_HOST=localhost
 DB_PORT=3306
-DB_NAME=luntan
+DB_NAME=forum
 DB_USER=root
 DB_PASSWORD=your_password  # ← 修改为你的MySQL密码
 DB_LOGGING=true
@@ -94,10 +94,10 @@ LOG_LEVEL=debug
 mysql -u root -p
 
 # 执行初始化脚本
-source /你的路径/luntan/database/init.sql
+source /你的路径/forum/database/init.sql
 
 # 或者直接在命令行执行
-mysql -u root -p luntan < database/init.sql
+mysql -u root -p forum < database/init.sql
 ```
 
 ### 方式二：使用 Sequelize 自动同步
@@ -112,7 +112,7 @@ mysql -u root -p luntan < database/init.sql
 
 ```sql
 -- 登录 MySQL 后执行
-USE luntan;
+USE forum;
 
 -- 检查表是否创建成功
 SHOW TABLES;
@@ -267,7 +267,7 @@ redis-server
 **解决：**
 ```bash
 # 确保执行了 init.sql 脚本
-mysql -u root -p luntan < database/init.sql
+mysql -u root -p forum < database/init.sql
 ```
 
 ### 5. 依赖安装失败
@@ -284,7 +284,7 @@ npm install
 ## 项目结构
 
 ```
-luntan/
+forum/
 ├── backend/                 # 后端
 │   ├── src/
 │   │   ├── config/         # 配置

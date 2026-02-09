@@ -2,17 +2,17 @@
 -- 社区论坛系统 - 数据库初始化脚本
 -- ===========================================
 -- 创建日期: 2026-02-10
--- 数据库: luntan
+-- 数据库: forum
 -- 字符集: utf8mb4
 -- 排序规则: utf8mb4_unicode_ci
 -- ===========================================
 
 -- 1. 创建数据库
-CREATE DATABASE IF NOT EXISTS luntan 
+CREATE DATABASE IF NOT EXISTS forum 
     CHARACTER SET utf8mb4 
     COLLATE utf8mb4_unicode_ci;
 
-USE luntan;
+USE forum;
 
 -- ===========================================
 -- 2. 用户表
