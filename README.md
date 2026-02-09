@@ -1,160 +1,220 @@
-# AGENTS.md
+# Forum - 全栈社区论坛系统
 
-This file contains guidelines for AI agents working on this forum project (Vue 3 + Node.js + MySQL).
+基于 Vue 3 + Node.js + MySQL + Redis 的现代化社区论坛系统。
 
-## Project Overview
+## ✨ 功能特性
 
-Full-stack forum system with:
-- **Frontend**: Vue 3 + TypeScript + Vite + Element Plus
-- **Backend**: Node.js + Express + TypeScript + Sequelize ORM
-- **Database**: MySQL + Redis (cache)
+### 👤 用户系统
+- 用户注册与登录（JWT 双令牌认证）
+- 第三方登录支持
+- 用户资料管理
+- 角色权限管理（用户 / 版主 / 管理员）
 
-## Build/Development Commands
+### 📝 内容系统
+- 发布、编辑、删除帖子
+- 帖子分类管理
+- 嵌套评论系统
+- 帖子搜索与标签
 
-### Backend (backend/)
+### 💬 互动功能
+- 点赞 / 收藏 / 关注
+- 消息通知系统
+- 内容举报与审核
+
+### ⚙️ 管理后台
+- 用户管理
+- 版块管理
+- 举报处理
+- 操作日志
+
+## 🛠 技术栈
+
+### 前端
+| 技术 | 用途 |
+|------|------|
+| Vue 3 | 前端框架 |
+| TypeScript | 类型安全 |
+| Vite | 构建工具 |
+| Element Plus | UI 组件库 |
+| Pinia | 状态管理 |
+| Vue Router | 路由管理 |
+| Axios | HTTP 客户端 |
+| WangEditor | 富文本编辑器 |
+
+### 后端
+| 技术 | 用途 |
+|------|------|
+| Node.js | 运行环境 |
+| Express | Web 框架 |
+| TypeScript | 类型安全 |
+| Sequelize | ORM 框架 |
+| MySQL | 主数据库 |
+| Redis | 缓存层 |
+| JWT | 身份认证 |
+| Winston | 日志系统 |
+
+## 📦 项目结构
+
+```
+forum/
+├── backend/                 # 后端项目
+│   ├── src/
+│   │   ├── config/         # 配置文件
+│   │   ├── controllers/    # 控制器
+│   │   ├── services/       # 业务逻辑
+│   │   ├── models/         # 数据模型
+│   │   ├── routes/         # 路由定义
+│   │   ├── middlewares/    # 中间件
+│   │   ├── utils/          # 工具函数
+│   │   └── database/       # 数据库脚本
+│   ├── package.json
+│   └── tsconfig.json
+│
+├── frontend/               # 前端项目
+│   ├── src/
+│   │   ├── api/           # API 封装
+│   │   ├── components/    # 公共组件
+│   │   ├── views/         # 页面视图
+│   │   ├── stores/        # Pinia 状态
+│   │   ├── router/        # 路由配置
+│   │   ├── directives/   # 自定义指令
+│   │   ├── types/         # 类型定义
+│   │   ├── utils/         # 工具函数
+│   │   └── styles/        # 样式文件
+│   ├── package.json
+│   └── vite.config.ts
+│
+├── database/              # 数据库脚本
+│   └── init.sql          # 数据库初始化
+│
+├── docs/                  # 文档
+│   ├── REQUIREMENTS.md   # 需求文档
+│   ├── DEPLOY.md         # 部署指南
+│   └── QUICK_START.md    # 快速启动
+│
+└── README.md
+```
+
+## 🚀 快速开始
+
+### 前置条件
+
+- Node.js 18+
+- MySQL 8.0+
+- Redis 5.0+
+- npm 或 yarn
+
+### 1. 克隆项目
+
 ```bash
-# Install dependencies
-cd backend && npm install
+git clone https://github.com/your-username/forum.git
+cd forum
+```
 
-# Development server (port 3000)
+### 2. 安装依赖
+
+```bash
+# 安装后端依赖
+cd backend
+npm install
+
+# 安装前端依赖
+cd ../frontend
+npm install
+```
+
+### 3. 配置环境变量
+
+```bash
+# 后端配置
+cd backend
+cp .env.example .env
+# 编辑 .env 文件，填入数据库密码等信息
+```
+
+### 4. 初始化数据库
+
+```bash
+# 创建数据库并导入表结构
+mysql -u root -p < database/init.sql
+```
+
+### 5. 启动服务
+
+```bash
+# 启动后端 (http://localhost:3000)
+cd backend
 npm run dev
 
-# Build for production
-npm run build
-
-# Start production server
-npm run start
-
-# Run tests
-npm run test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run single test file
-npm run test -- --testPathPattern=user.service
-
-# Database operations
-npm run db:init      # Initialize database
-npm run db:migrate   # Run migrations
-npm run db:seed      # Seed database
-```
-
-### Frontend (frontend/)
-```bash
-# Install dependencies
-cd frontend && npm install
-
-# Development server (port 5173)
+# 启动前端 (http://localhost:5173) - 新终端
+cd frontend
 npm run dev
-
-# Build for production
-npm run build
-
-# Type check
-npm run type-check
 ```
 
-## Code Style Guidelines
+## 📖 文档
 
-### TypeScript
-- **Target**: ES2020, CommonJS modules
-- **Strict mode**: Enabled
-- Use explicit return types for functions
-- Define interfaces for data structures (e.g., `RegisterData`, `TokenPayload`)
-- Use `async/await` for asynchronous operations
+- [快速启动指南](./docs/QUICK_START.md)
+- [需求文档](./docs/REQUIREMENTS.md)
+- [部署指南](./docs/DEPLOY.md)
+- [AI 开发指南](./AGENTS.md)
 
-### Imports
-- Use ES6 import syntax
-- Group imports: external libraries first, then internal modules
-- Use path alias `@/*` for internal imports (configured in tsconfig.json)
-- Example:
-```typescript
-import express from 'express';
-import { Request, Response } from 'express';
-import { userService } from '../services/user.service';
-import { ApiResponse } from '../utils/response';
+## 🔧 可用脚本
+
+### 后端
+
+```bash
+cd backend
+
+npm run dev        # 开发模式
+npm run build      # 生产构建
+npm run start      # 启动生产服务
+npm run test       # 运行测试
+npm run db:init    # 初始化数据库
 ```
 
-### Naming Conventions
-- **Files**: kebab-case (e.g., `user.controller.ts`, `auth.middleware.ts`)
-- **Classes**: PascalCase (e.g., `User`, `Category`)
-- **Interfaces**: PascalCase (e.g., `RegisterData`, `TokenPayload`)
-- **Variables/Functions**: camelCase (e.g., `userService`, `findById`)
-- **Constants**: UPPER_SNAKE_CASE for true constants
+### 前端
 
-### Error Handling
-- Use custom `asyncHandler` wrapper for async route handlers
-- Use `ApiResponse` utility for consistent response format:
-  - `ApiResponse.success(res, data, message?, statusCode?)`
-  - `ApiResponse.badRequest(res, message)`
-  - `ApiResponse.unauthorized(res)`
-  - `ApiResponse.notFound(res, message)`
-- Throw errors in services, handle in controllers
-- Log errors using Winston logger
+```bash
+cd frontend
 
-### Project Structure
-```
-backend/src/
-├── config/         # Configuration files
-├── controllers/    # Route controllers
-├── database/       # Database initialization, migrations, seeders
-├── middlewares/    # Express middlewares
-├── models/         # Sequelize models
-├── routes/         # Express routes
-├── services/       # Business logic
-└── utils/          # Utility functions
+npm run dev        # 开发模式
+npm run build      # 生产构建
+npm run type-check # 类型检查
 ```
 
-### Response Format
-All API responses follow this structure:
-```typescript
-{
-  success: boolean,
-  message: string,
-  data?: any,
-  errors?: any
-}
-```
+## 🔐 环境变量
 
-### Database
-- Use Sequelize ORM for database operations
-- Define models in `models/` directory
-- Use migrations for schema changes
-- Model attributes use snake_case in DB, camelCase in code
+| 变量 | 说明 | 默认值 |
+|------|------|--------|
+| NODE_ENV | 环境 | development |
+| PORT | 后端端口 | 3000 |
+| DB_HOST | MySQL 主机 | localhost |
+| DB_PORT | MySQL 端口 | 3306 |
+| DB_NAME | 数据库名 | forum |
+| DB_USER | 数据库用户 | root |
+| DB_PASSWORD | 数据库密码 | - |
+| JWT_SECRET | JWT 密钥 | - |
+| JWT_EXPIRES_IN | Token 过期时间 | 7d |
+| REDIS_HOST | Redis 主机 | localhost |
+| REDIS_PORT | Redis 端口 | 6379 |
 
-### Security
-- Use Helmet for security headers
-- Use CORS with configured origins
-- Implement rate limiting on API routes
-- JWT for authentication
-- Password hashing with bcrypt
+## 📝 API 文档
 
-## Environment Variables
+| 模块 | 基础路径 | 说明 |
+|------|---------|------|
+| 用户认证 | `/api/v1/users` | 注册、登录、Token 刷新 |
+| 帖子管理 | `/api/v1/posts` | CRUD 操作 |
+| 评论管理 | `/api/v1/comments` | 嵌套评论 |
+| 版块管理 | `/api/v1/categories` | 版块 CRUD |
+| 互动功能 | `/api/v1/interactions` | 点赞、收藏、关注 |
+| 通知系统 | `/api/v1/notifications` | 消息通知 |
+| 管理后台 | `/api/v1/admin` | 用户管理、内容审核 |
+| 文件上传 | `/api/v1/upload` | 图片上传 |
 
-Key backend environment variables (see backend/.env.example):
-```
-NODE_ENV=development
-PORT=3000
-DB_HOST=localhost
-DB_PORT=3306
-DB_NAME=luntan
-DB_USER=root
-DB_PASSWORD=root
-JWT_SECRET=your_secret_key
-REDIS_HOST=localhost
-REDIS_PORT=6379
-```
+## 🤝 贡献
 
-## Testing
-- Use Jest for testing
-- Use supertest for API testing
-- Tests located alongside source files or in `__tests__` directories
-- Run single test: `npm run test -- --testPathPattern=<name>`
+欢迎提交 Issue 和 Pull Request！
 
-## API Convention
-- Base URL: `/api/v1`
-- RESTful endpoints
-- Use appropriate HTTP methods (GET, POST, PUT, DELETE)
-- Return appropriate HTTP status codes
-- Chinese language for user-facing messages
+## 📄 License
+
+MIT License
