@@ -1,0 +1,7 @@
+export { default as userApi } from './user'
+export { default as postApi } from './post'
+export { default as categoryApi } from './category'
+export { default as commentApi } from './comment'
+export { default as interactionApi } from './interaction'
+export { default as adminApi } from './admin'
+export { default as uploadApi } from './upload'
